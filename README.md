@@ -2,7 +2,7 @@
 Jake Daigle | Bioinformatics, Lund University | 2025
 ***
 ## About
-This is a web app which was designed to calculate genetic distance, by way of tabulating mtDNA haplogroup-associated differences, between a user and a collection of ancient individuals (or between two selected modern/ancient individuals). The app can be accessed at https://hapmatch.streamlit.app and an example test user file (Test1.tsv) can be downloaded locally and then used in the app. The paper I've written on the development and design of this app can be viewed by anyone at https://docs.google.com/document/d/13dld4dewWlLuCM4SnPzFYnCnQ3oraN_7PlNIU-uvVwk/edit?usp=sharing.
+This is a web app which was designed to calculate genetic distance, by way of tabulating mtDNA haplogroup-associated differences, between a user and a collection of ancient individuals (or between two selected modern/ancient individuals). The app can be accessed at https://jakedaigle-hapmatch.streamlit.app and an example test user file (Test1.tsv) can be downloaded locally and then used in the app. The paper I've written on the development and design of this app can be viewed by anyone at https://docs.google.com/document/d/13dld4dewWlLuCM4SnPzFYnCnQ3oraN_7PlNIU-uvVwk/edit?usp=sharing.
 
 The concept and motivation for this app's development were originally provided by Eran Elhaik of Lund University as a part of the BINP29: DNA Sequencing Informatics II course within the bioinformatics master's degree program at Lund University. 
 ## Usage
