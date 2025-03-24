@@ -1,0 +1,9 @@
+[server]
+port=80
+[theme]
+primaryColor="#3f9ba6"
+backgroundColor="#011826"
+secondaryBackgroundColor="#032940"
+textColor="#a9d9d4"
+font="Cascadia Code"
+#font="Bahnschrift"

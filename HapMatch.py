@@ -170,13 +170,19 @@ def getClosest(refs: dict, usr, haplos: dict, mode: str) -> dict:
 @st.cache_data
 def get_haplo(path: str, ids: list) -> dict:
     try:
+        main_found = False
         haplo = dict()
         with open(path) as f:
             for line in f:
                 line = line.strip().split("\t")
                 if line[3] in ids:
+                    if line[3] == ids[0]:
+                        main_found = True
                     haplo[int(line[1])] = (line[2].casefold(), line[0])
-        return haplo
+        if main_found:
+            return haplo
+        else:
+            return dict()
     
     except FileNotFoundError:
         print(f"Error: file {path} not found.")
@@ -362,28 +368,32 @@ def main():
         )
 
     if st.session_state.stage == 1:
-        if users:
-            if len(users) == 2:
-                references = {"User 2": users[1]}
-            st.session_state["results"] = getClosest(references, users[0], haplogroup, st.session_state.comparison_mode)
-            event = show_table(table)
-
-            best_score = st.session_state.results["Genetic Distance"].min()
-            closest_names = list(st.session_state.results[st.session_state.results["Genetic Distance"] == best_score].index)
-            closest_data = pd.DataFrame(get_metadata(closest_names), columns=["Name", "Country", "Group", "LAT", "LON", "Sex", "MTHG"])
-            closest_data.LAT = [float(x.replace(",", ".")) for x in closest_data.LAT]
-            closest_data.LON = [float(x.replace(",", ".")) for x in closest_data.LON]
-        else:
-            st.write("Please upload a user file or switch to 'Ancient vs. Ancient' mode.")
+        if not haplogroup:
+            error_text.write("Please enter a valid haplogroup.")
             set_stage(0)
+        else:
+            if users:
+                if len(users) == 2:
+                    references = {"User 2": users[1]}
+                st.session_state["results"] = getClosest(references, users[0], haplogroup, st.session_state.comparison_mode)
+                event = show_table(table)
 
-        if event.selection.rows:
-            st.session_state["individual_results"] = st.session_state.results.iloc[event.selection.rows[0]]
-            id = st.session_state.individual_results.name
+                best_score = st.session_state.results["Genetic Distance"].min()
+                closest_names = list(st.session_state.results[st.session_state.results["Genetic Distance"] == best_score].index)
+                closest_data = pd.DataFrame(get_metadata(closest_names), columns=["Name", "Country", "Group", "LAT", "LON", "Sex", "MTHG"])
+                closest_data.LAT = [float(x.replace(",", ".")) for x in closest_data.LAT]
+                closest_data.LON = [float(x.replace(",", ".")) for x in closest_data.LON]
+            else:
+                error_text.write("Please upload a user file or switch to 'Ancient vs. Ancient' mode.")
+                set_stage(0)
 
-            meta = get_metadata(id)
-            meta = pd.Series(meta[1:], index=metadata_header[1:], name=id)
-            st.write(pd.concat([st.session_state.individual_results, meta]))
+            if event.selection.rows:
+                st.session_state["individual_results"] = st.session_state.results.iloc[event.selection.rows[0]]
+                id = st.session_state.individual_results.name
+
+                meta = get_metadata(id)
+                meta = pd.Series(meta[1:], index=metadata_header[1:], name=id)
+                st.write(pd.concat([st.session_state.individual_results, meta]))
 
         if(st.session_state.show_map):
             st.map(closest_data)
