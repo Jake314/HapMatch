@@ -22,3 +22,10 @@ The concept and motivation for this app's development were originally provided b
 5. (Optionally) Toggle on/off the map in the sidebar to see geographical locations of the most closely related individuals.
 
 There is also an input box in the sidebar which lets a user input a read-limit to cap the amount of the reference file the program reads. This is only really useful for testing the functionality of the software when the process needs to run many times.
+## Example
+Open the app (wake up if necessary), upload data/Test1.tsv to the user file slot, enter haplogroup "X2c2" (must press enter) and click run.
+![Screenshot 2025-03-24 113216](https://github.com/user-attachments/assets/c2e52e4b-b932-42a9-b86e-a105aef2029b) 
+We see that one of the closets results (among others) is I5373. Neither individual has the A227G mutation (and at least one has a gap there), while both have the G1719A mutation (among others).
+![image](https://github.com/user-attachments/assets/e90bb6a0-c23b-4b8f-948e-9915ad9a46a1)
+By selecting I5373 to see more info, we can see that they are a male from Great Britain, and are labelled as being haplogroup X2b+226.
+
